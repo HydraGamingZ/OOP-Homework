@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+double balance = 0;
+
+// Deposit function
+void Deposit(float amount)
+{
+    balance += amount;
+    cout << "Deposited: " << amount << endl;
+}
+
+// Withdraw function
+bool Withdraw(float amount)
+{
+    if (amount <= balance)
+    {
+        balance -= amount;
+        cout << "Withdrawn: " << amount << endl;
+        return true;
+    }
+    else
+    {
+        cout << "Insufficient balance!" << endl;
+        return false;
+    }
+}
+
+int main()
+{
+    float depositAmount, withdrawAmount;
+
+    // User input for deposit
+    cout << "Enter amount to deposit: ";
+    cin >> depositAmount;
+
+    Deposit(depositAmount);
+
+    cout << "Current balance: " << balance << endl;
+
+    // User input for withdrawal
+    cout << "Enter amount to withdraw: ";
+    cin >> withdrawAmount;
+
+    Withdraw(withdrawAmount);
+
+    cout << "Final balance: " << balance << endl;
+
+    return 0;
+}
