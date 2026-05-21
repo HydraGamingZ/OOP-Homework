@@ -1,0 +1,78 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+const double g = 9.81;
+
+// Function to calculate time of flight
+double TimeOfFlight(double v, double thetaRad)
+{
+    return (2 * v * sin(thetaRad)) / g;
+}
+
+// Function to calculate maximum height
+double MaxHeight(double v, double thetaRad)
+{
+    double vy = v * sin(thetaRad);
+
+    return pow(vy, 2) / (2 * g);
+}
+
+// Function to calculate horizontal range
+double HorizontalRange(double v, double thetaRad)
+{
+    return (pow(v, 2) * sin(2 * thetaRad)) / g;
+}
+
+// Function to calculate vertical position
+double VerticalPosition(double v, double thetaRad, double x)
+{
+    return x * tan(thetaRad)
+           - (g * pow(x, 2))
+           / (2 * pow(v, 2) * pow(cos(thetaRad), 2));
+}
+
+int main()
+{
+    double v, thetaDeg, thetaRad;
+    double x;
+
+    cout << "Enter initial speed (m/s): ";
+    cin >> v;
+
+    if (v < 0)
+    {
+        cout << "Error: Speed cannot be negative." << endl;
+        return 1;
+    }
+
+    cout << "Enter launch angle (degrees): ";
+    cin >> thetaDeg;
+
+    // Convert degrees to radians
+    thetaRad = thetaDeg * M_PI / 180.0;
+
+    cout << "Enter horizontal position x (m): ";
+    cin >> x;
+
+    cout << "\n--- Projectile Motion Results ---" << endl;
+
+    cout << "Time of flight: "
+         << TimeOfFlight(v, thetaRad)
+         << " s" << endl;
+
+    cout << "Maximum height: "
+         << MaxHeight(v, thetaRad)
+         << " m" << endl;
+
+    cout << "Horizontal range: "
+         << HorizontalRange(v, thetaRad)
+         << " m" << endl;
+
+    cout << "Vertical position at x = "
+         << x << " m is y = "
+         << VerticalPosition(v, thetaRad, x)
+         << " m" << endl;
+
+    return 0;
+}
