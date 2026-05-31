@@ -1,0 +1,159 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+// -Product-
+struct Product {
+    int id;
+    std::string name;
+    double price;
+};
+
+// -Catalog-
+class Catalog {
+private:
+    std::vector<Product> products;
+
+public:
+    void load() {
+        products.push_back({1, "Apple", 0.5});
+        products.push_back({2, "Bread", 1.5});
+        products.push_back({3, "Milk", 2.0});
+        products.push_back({4, "Chocolate", 1.0});
+    }
+
+    // non-const version
+    Product* find(int id) {
+        for (auto &p : products) {
+            if (p.id == id) return &p;
+        }
+        return nullptr;
+    }
+
+    // const version (FIX for your error)
+    const Product* find(int id) const {
+        for (const auto &p : products) {
+            if (p.id == id) return &p;
+        }
+        return nullptr;
+    }
+};
+
+// -Cart Item-
+struct CartItem {
+    int productId;
+    int quantity;
+};
+
+// -Cart-
+class Cart {
+private:
+    std::vector<CartItem> items;
+
+public:
+    void add(int productId, int qty) {
+        for (auto &item : items) {
+            if (item.productId == productId) {
+                item.quantity += qty;
+                return;
+            }
+        }
+        items.push_back({productId, qty});
+    }
+
+    void remove(int productId) {
+        for (size_t i = 0; i < items.size(); i++) {
+            if (items[i].productId == productId) {
+                items.erase(items.begin() + i);
+                return;
+            }
+        }
+    }
+
+    const std::vector<CartItem>& getItems() const {
+        return items;
+    }
+};
+
+// -Pricing-
+class Pricing {
+private:
+    const Catalog& catalog;
+    double taxRate;
+
+public:
+    Pricing(const Catalog& c, double tax)
+        : catalog(c), taxRate(tax) {}
+
+    double subtotal(const Cart& cart) {
+        double sum = 0.0;
+
+        for (const auto &item : cart.getItems()) {
+            const Product* p = catalog.find(item.productId);
+            if (p) {
+                sum += p->price * item.quantity;
+            }
+        }
+        return sum;
+    }
+
+    double discount(double subtotal) {
+        return (subtotal > 10.0) ? subtotal * 0.9 : subtotal;
+    }
+
+    double tax(double afterDiscount) {
+        return afterDiscount * taxRate;
+    }
+
+    double total(const Cart& cart) {
+        double sub = subtotal(cart);
+        double after = discount(sub);
+        return after + tax(after);
+    }
+};
+
+// -Receipt-
+class ReceiptPrinter {
+public:
+    void print(const Cart& cart, const Catalog& catalog, Pricing& pricing) {
+        std::cout << "---- Receipt ----\n";
+
+        for (const auto &item : cart.getItems()) {
+            const Product* p = catalog.find(item.productId);
+            if (!p) continue;
+
+            std::cout << p->name << " x" << item.quantity
+                      << " @ " << p->price
+                      << " = " << (p->price * item.quantity)
+                      << "\n";
+        }
+
+        double sub = pricing.subtotal(cart);
+        double after = pricing.discount(sub);
+        double tax = pricing.tax(after);
+        double total = after + tax;
+
+        std::cout << "Subtotal: " << sub << "\n";
+        std::cout << "Discounted: " << after << "\n";
+        std::cout << "Tax: " << tax << "\n";
+        std::cout << "Total: " << total << "\n";
+    }
+};
+
+// -main-
+int main() {
+    Catalog catalog;
+    catalog.load();
+
+    Cart cart;
+    cart.add(1, 4);
+    cart.add(2, 1);
+    cart.add(4, 3);
+
+    Pricing pricing(catalog, 0.07);
+    ReceiptPrinter printer;
+
+    printer.print(cart, catalog, pricing);
+
+    return 0;
+}
