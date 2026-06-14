@@ -1,0 +1,178 @@
+using System.Collections.Generic;
+
+namespace LivingModel
+{
+    class Living
+    {
+        public Lecturer Lecturer { get; set; }
+        public List<Student> Students { get; set; } = new List<Student>();
+    }
+
+    class Lecturer
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
+
+        public Lecturer(string name, string id)
+        {
+            Name = name;
+            Id = id;
+        }
+    }
+
+    class Student
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
+
+        public Student(string name, string id)
+        {
+            Name = name;
+            Id = id;
+        }
+    }
+
+    class Furniture
+    {
+        public List<Chair> Chairs { get; set; } = new List<Chair>();
+        public List<Table> Tables { get; set; } = new List<Table>();
+    }
+
+    class Chair
+    {
+        public string ChairId { get; set; }
+
+        public Chair(string chairId)
+        {
+            ChairId = chairId;
+        }
+    }
+
+    class Table
+    {
+        public string TableId { get; set; }
+
+        public Table(string tableId)
+        {
+            TableId = tableId;
+        }
+    }
+
+    class Electronics
+    {
+        public Socket Socket { get; set; }
+        public List<TV> TVs { get; set; } = new List<TV>();
+        public List<Laptop> Laptops { get; set; } = new List<Laptop>();
+        public List<Phones> Phones { get; set; } = new List<Phones>();
+        public List<Speaker> Speakers { get; set; } = new List<Speaker>();
+        public List<Button> Buttons { get; set; } = new List<Button>();
+        public List<Charger> Chargers { get; set; } = new List<Charger>();
+        public List<PowerBank> PowerBanks { get; set; } = new List<PowerBank>();
+    }
+
+    class Socket
+    {
+        public string SocketId { get; set; }
+
+        public Socket(string socketId)
+        {
+            SocketId = socketId;
+        }
+    }
+
+    class TV
+    {
+        public string TvId { get; set; }
+
+        public TV(string tvId)
+        {
+            TvId = tvId;
+        }
+    }
+
+    class Laptop
+    {
+        public string LaptopId { get; set; }
+
+        public Laptop(string laptopId)
+        {
+            LaptopId = laptopId;
+        }
+    }
+
+    class Phones
+    {
+        public string PhoneId { get; set; }
+
+        public Phones(string phoneId)
+        {
+            PhoneId = phoneId;
+        }
+    }
+
+    class Speaker
+    {
+        public string SpeakerId { get; set; }
+
+        public Speaker(string speakerId)
+        {
+            SpeakerId = speakerId;
+        }
+    }
+
+    class Button
+    {
+        public string ButtonId { get; set; }
+
+        public Button(string buttonId)
+        {
+            ButtonId = buttonId;
+        }
+    }
+
+    class Charger
+    {
+        public string ChargerId { get; set; }
+
+        public Charger(string chargerId)
+        {
+            ChargerId = chargerId;
+        }
+    }
+
+    class PowerBank
+    {
+        public string PowerBankId { get; set; }
+
+        public PowerBank(string powerBankId)
+        {
+            PowerBankId = powerBankId;
+        }
+    }
+
+    class Stationery
+    {
+        public List<Marker> Markers { get; set; } = new List<Marker>();
+        public List<Pen> Pens { get; set; } = new List<Pen>();
+    }
+
+    class Marker
+    {
+        public string MarkerId { get; set; }
+
+        public Marker(string markerId)
+        {
+            MarkerId = markerId;
+        }
+    }
+
+    class Pen
+    {
+        public string PenId { get; set; }
+
+        public Pen(string penId)
+        {
+            PenId = penId;
+        }
+    }
+}
