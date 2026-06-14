@@ -1,13 +1,7 @@
 using System.Collections.Generic;
 
-namespace LivingModel
+namespace Humans
 {
-    class Living
-    {
-        public Lecturer Lecturer { get; set; }
-        public List<Student> Students { get; set; } = new List<Student>();
-    }
-
     class Lecturer
     {
         public string Name { get; set; }
@@ -154,6 +148,7 @@ namespace LivingModel
     {
         public List<Marker> Markers { get; set; } = new List<Marker>();
         public List<Pen> Pens { get; set; } = new List<Pen>();
+        public List<Pencil> Pencils { get; set; } = new List<Pencil>();
     }
 
     class Marker
@@ -173,6 +168,16 @@ namespace LivingModel
         public Pen(string penId)
         {
             PenId = penId;
+        }
+    }
+
+    class Pencil
+    {
+        public string PencilId { get; set; }
+
+        public Pencil(string pencilId)
+        {
+            PencilId = pencilId;
         }
     }
 }
